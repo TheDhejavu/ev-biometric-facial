@@ -19,9 +19,9 @@ class FacialRecognition():
 
         # loop over the image paths
         for (i, imagePath) in enumerate(imagePaths):
-        # extract the person name from the image path
+            # extract the person name from the image path
             print("[INFO] processing image {}/{}".format(i + 1,
-            len(imagePaths)))
+                                                         len(imagePaths)))
             name = imagePath.split(os.path.sep)[-2]
         # load the input image and convert it from BGR (OpenCV ordering)
         # to dlib ordering (RGB)
@@ -29,10 +29,10 @@ class FacialRecognition():
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
         boxes = face_recognition.face_locations(rgb,
-            model="hog")
+                                                model="hog")
         # compute the facial embedding for the face
         encodings = face_recognition.face_encodings(rgb, boxes)
-        
+
         # loop over the encodings
         for encoding in encodings:
             # add each encoding + name to our set of known names and
@@ -42,14 +42,13 @@ class FacialRecognition():
         self.encodings = encodings
         return (print("Encodings Saved!!"))
 
-
     def save_encodings(self):
         import os
         # dump the facial encodings + names to disk
         print("[INFO] serializing encodings...")
         cwd = os. getcwd()
         data = {"encodings": knownEncodings, "names": knownNames}
-        f = open(cwd +"encodings", "wb")
+        f = open(cwd + "encodings", "wb")
         f.write(pickle.dumps(data))
         f.close()
 
@@ -58,7 +57,7 @@ class FacialRecognition():
         # load the known faces and embeddings
         print("[INFO] loading encodings...")
         cwd = os. getcwd()
-        data = pickle.loads(open(cwd +"encodings", "rb").read())
+        data = pickle.loads(open(cwd + "encodings", "rb").read())
         # load the input image and convert it from BGR to RGB
         image = cv2.imread(image_url)
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -67,16 +66,16 @@ class FacialRecognition():
         # for each face
         print("[INFO] recognizing faces...")
         boxes = face_recognition.face_locations(rgb,
-        model="hog")
+                                                model="hog")
         encodings = face_recognition.face_encodings(rgb, boxes)
         # initialize the list of names for each face detected
         names = []
 
         # loop over the facial embeddings
         for encoding in encodings:
-            matches = face_recognition.compare_faces(data["encodings"], encoding)
+            matches = face_recognition.compare_faces(
+                data["encodings"], encoding)
             name = "Unknown"
-
 
         # check to see if we have found a match
         if True in matches:
@@ -94,7 +93,7 @@ class FacialRecognition():
           # votes (note: in the event of an unlikely tie Python will
           # select first entry in the dictionary)
                 name = max(counts, key=counts.get)
-            
+
         # update the list of names
         names.append(name)
 
@@ -104,7 +103,7 @@ class FacialRecognition():
             cv2.rectangle(image, (left, top), (right, bottom), (0, 255, 0), 2)
             y = top - 15 if top - 15 > 15 else top + 15
             cv2.putText(image, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
-              0.75, (0, 255, 0), 2)
+                        0.75, (0, 255, 0), 2)
             # show the output image
             cv2_imshow(image)
             cv2.waitKey(0)
@@ -112,8 +111,7 @@ class FacialRecognition():
         return name
 
 
-
-if __name__ ==  __main__:
+if __name__ == "__main__":
     # load face recognition object
     fr = FacialRecognition()
     # implement an event listeer to run whenever images in the folder chages
