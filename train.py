@@ -43,7 +43,6 @@ class Handler(FileSystemEventHandler):
         if event.is_directory:
             return None
         else:
-            # implement an event listeer to run whenever images in the folder chages
             train()
             # Taken any action here when a file is modified.
             logger.info(f"Received created event - {event.src_path}.")
