@@ -48,15 +48,17 @@ class FacialRecognition():
         logger.info("Encodings Saved!!")
 
     def save_encodings(self):
-        import os
+
         # dump the facial encodings + names to disk
         logger.info("[INFO] serializing encodings...")
-        cwd = os. getcwd()
+        cwd = os.getcwd()
+        
         data = {
             "encodings": self.knownEncodings,
             "names": self.knownNames
         }
-        f = open(cwd + "encodings", "wb")
+        f = open(cwd + "/encodings", "wb")
+        
         f.write(pickle.dumps(data))
         f.close()
 
@@ -65,7 +67,7 @@ class FacialRecognition():
         # load the known faces and embeddings
         logger.info("[INFO] loading encodings...")
         cwd = os. getcwd()
-        data = pickle.loads(open(cwd + "encodings", "rb").read())
+        data = pickle.loads(open(cwd + "/encodings", "rb").read())
         # load the input image and convert it from BGR to RGB
         image = cv2.imread(image_url)
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -131,4 +133,4 @@ if __name__ == "__main__":
     fr.save_encodings()
 
     # test new image to return the image and class label
-    print(fr.test_images("./testdata/deji.jpeg"))
+    print(fr.test_images("./testdata/download.jpeg"))

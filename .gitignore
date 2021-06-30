@@ -26,4 +26,4 @@ Logs
 .*.sw?
 dataset
 testdata
-encodings.*
+encodings
