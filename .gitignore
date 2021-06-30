@@ -24,3 +24,6 @@ Logs
 # vim temporary files
 *~
 .*.sw?
+dataset
+testdata
+encodings.*
