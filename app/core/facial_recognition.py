@@ -52,13 +52,13 @@ class FacialRecognition():
         # dump the facial encodings + names to disk
         logger.info("[INFO] serializing encodings...")
         cwd = os.getcwd()
-        
+
         data = {
             "encodings": self.knownEncodings,
             "names": self.knownNames
         }
-        f = open(cwd + "/encodings", "wb")
-        
+        f = open(cwd + "/models/encodings", "wb")
+
         f.write(pickle.dumps(data))
         f.close()
 
@@ -66,8 +66,8 @@ class FacialRecognition():
         # from google.colab.patches import cv2_imshow
         # load the known faces and embeddings
         logger.info("[INFO] loading encodings...")
-        cwd = os. getcwd()
-        data = pickle.loads(open(cwd + "/encodings", "rb").read())
+        cwd = os.getcwd()
+        data = pickle.loads(open(cwd + "/models/encodings", "rb").read())
         # load the input image and convert it from BGR to RGB
         image = cv2.imread(image_url)
         rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)

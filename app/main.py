@@ -7,7 +7,6 @@ from starlette.exceptions import HTTPException
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api.routes.api import router as api_router
-
 from app.common.config import LOGO, ALLOWED_HOSTS, API_PREFIX, DESCRIPTION, DEBUG, PROJECT_NAME, VERSION
 
 
