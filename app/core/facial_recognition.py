@@ -81,7 +81,7 @@ class FacialRecognition():
         # initialize the list of names for each face detected
         names = []
         matches = []
-        name = "Unknown"
+        name = "unknown"
 
         # loop over the facial embeddings
         for encoding in encodings:
@@ -126,11 +126,11 @@ class FacialRecognition():
 
 if __name__ == "__main__":
     # load face recognition object
-    fr = FacialRecognition()
+    fr = FacialRecognition(display_image=True)
     # implement an event listeer to run whenever images in the folder chages
     cwd = os.getcwd()
     fr.train_images(cwd+"/dataset")
     fr.save_encodings()
 
     # test new image to return the image and class label
-    print(fr.test_images("./testdata/download.jpeg"))
+    print(fr.test_images("./testdata/obama.jpeg"))

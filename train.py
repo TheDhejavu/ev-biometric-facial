@@ -20,7 +20,6 @@ class Watcher:
         self.observer = Observer()
 
     def run(self):
-        train()
         event_handler = Handler()
         self.observer.schedule(
             event_handler, self.DIRECTORY_TO_WATCH, recursive=True)
@@ -38,16 +37,17 @@ class Watcher:
 class Handler(FileSystemEventHandler):
 
     @staticmethod
-    def on_any_event(event):
-
+    def on_modified(event):
+        print(event)
         if event.is_directory:
             return None
         else:
             train()
             # Taken any action here when a file is modified.
-            logger.info(f"Received created event - {event.src_path}.")
+            logger.info(f"Received modified event - {event.src_path}.")
 
 
 if __name__ == '__main__':
     w = Watcher()
+    train()
     w.run()

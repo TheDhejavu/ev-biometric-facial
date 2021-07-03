@@ -18,6 +18,12 @@ run: ## run the API server
 	@uvicorn app.main:app --reload
 
 
+.PHONY: train
+train: ## run train and listen to new dataset
+	@echo "Start Training Dataset"
+	@python3 train.py
+
+
 .PHONY: redis-start
 redis-start: ## start the redis server
 	@docker run --rm --name facial_ev_service_redis -d redis redis-server --appendonly yes
